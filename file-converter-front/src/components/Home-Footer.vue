@@ -10,11 +10,9 @@
       </div>
       <div class="foot-right">
         <ul class="social-link">
-          <li title="CSDN">
-            <a href=""><i class="csdn foot-icon"></i></a>
-          </li>
-          <li title="Github"><a href=""><i class="github foot-icon"></i></a></li>
-          <li title="Gitee"><a href=""><i class="gitee foot-icon"></i></a></li>
+          <li title="CSDN"><a href="https://blog.csdn.net/m0_73845616"><i class="csdn foot-icon"></i></a></li>
+          <li title="Github"><a href="https://github.com/runhuo1"><i class="github foot-icon"></i></a></li>
+          <li title="Gitee"><a href="https://gitee.com/runhuo"><i class="gitee foot-icon"></i></a></li>
         </ul>
       </div>
     </div>

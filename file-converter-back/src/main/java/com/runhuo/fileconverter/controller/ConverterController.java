@@ -32,8 +32,40 @@ public class ConverterController {
      * @return
      * @throws IOException
      */
-    @PostMapping("/pdfToWord")
+    @PostMapping("/PDFToWord")
     public Result pdfToWord(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws Exception {
         return converterService.pdfToWord(file, response);
     }
+
+    /**
+     * pdf转ppt
+     * @param file
+     * @param response
+     * @return
+     * @throws Exception
+     */
+
+    @PostMapping("/PDFToPPT")
+    public Result pdfToPpt(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws Exception {
+        return converterService.pdfToPpt(file,response);
+    }
+
+    /**
+     * pdf转excel
+     * @param file
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/PDFToExcel")
+    public Result pdfToExcel(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws Exception {
+        return converterService.pdfToExcel(file,response);
+    }
+
+    @PostMapping("PDFToImage")
+    public Result pdfToImage(@RequestParam("file") MultipartFile file,HttpServletResponse response) throws Exception {
+        return converterService.pdfToImage(file,response);
+    }
+
+
 }

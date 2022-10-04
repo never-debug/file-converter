@@ -13,5 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface ConverterService {
     Result pdfToWord(MultipartFile file, HttpServletResponse response) throws Exception;
+    Result pdfToPpt(MultipartFile file, HttpServletResponse response) throws Exception;
+    Result pdfToExcel(MultipartFile file, HttpServletResponse response) throws Exception;
+    Result pdfToImage(MultipartFile file, HttpServletResponse response) throws Exception;
 }
 

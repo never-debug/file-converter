@@ -1,7 +1,10 @@
 package com.runhuo.fileconverter.service.impl;
 
 import com.runhuo.fileconverter.service.ConverterService;
-import com.runhuo.fileconverter.utils.ConverterUtils;
+import com.runhuo.fileconverter.utils.PdfToExcelUtils;
+import com.runhuo.fileconverter.utils.PdfToImageUtils;
+import com.runhuo.fileconverter.utils.PdfToPptUtils;
+import com.runhuo.fileconverter.utils.PdfToWordUtils;
 import com.runhuo.fileconverter.vo.Result;
 import com.spire.pdf.FileFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,54 +22,67 @@ import java.util.List;
  */
 @Service
 public class ConverterServiceImpl implements ConverterService {
+
+
     @Autowired
-    private ConverterUtils converterUtils;
+    private PdfToWordUtils pdfToWordUtils;
+
+    @Autowired
+    private PdfToPptUtils pdfToPptUtils;
+
+    @Autowired
+    private PdfToExcelUtils pdfToExcelUtils;
+
+    @Autowired
+    private PdfToImageUtils pdfToImageUtils;
+
 
     @Override
     public Result pdfToWord(MultipartFile file, HttpServletResponse response) throws Exception {
-        List<String> docxList = converterUtils.fileConverter(file, com.spire.pdf.FileFormat.DOCX, "docx");
+        List<String> docxList = pdfToWordUtils.fileConverter(file, com.spire.pdf.FileFormat.DOCX, "docx");
         String downloadLink = null;
         if (docxList.size() == 1) {
             downloadLink = docxList.get(0);
         } else {
-            downloadLink = converterUtils.merger(docxList, "docx");
+            downloadLink = pdfToWordUtils.merger(docxList, "docx");
         }
         return Result.success(downloadLink);
     }
-}
-//@Service
-//public class ConverterServiceImpl implements ConverterService {
-//    @Autowired
-//    private ConverterUtils converterUtils;
-//
-//    @Override
-//    public void pdfToWord(MultipartFile file, HttpServletResponse response) throws Exception {
-//
-//        OutputStream outputStream = response.getOutputStream();
-//        //加载文件
-//        PdfDocument pdfDocument=new PdfDocument(file.getBytes());
-//        //获取页数
-//        int pageCount=pdfDocument.getPages().getCount();
-//        if (pageCount>3){
-//            converterUtils.splitDocument(pdfDocument,outputStream,pageCount,FileFormat.DOCX);
-//        }
-//        else {
-//            converterUtils.convertDocument(pdfDocument,outputStream,FileFormat.DOCX);
-//        }
-//
-//
 
+    @Override
+    public Result pdfToPpt(MultipartFile file, HttpServletResponse response) throws Exception {
+        List<String> pdfList = pdfToPptUtils.fileConverter(file, FileFormat.PDF, "pdf");
+        String downloadLink = null;
+        if (pdfList.size() == 1) {
+            downloadLink = pdfList.get(0);
+        } else {
+            downloadLink = pdfToPptUtils.merger(pdfList, "pptx");
+        }
+        return Result.success(downloadLink);
+    }
 
+    @Override
+    public Result pdfToExcel(MultipartFile file, HttpServletResponse response) throws Exception {
+        List<String> docxList = pdfToExcelUtils.fileConverter(file, FileFormat.XLSX, "xlsx");
+        String downloadLink = null;
+        if (docxList.size() == 1) {
+            downloadLink = docxList.get(0);
+        } else {
+            downloadLink = pdfToExcelUtils.merger(docxList, "xlsx");
+        }
+        return Result.success(downloadLink);
+    }
 
-
-//
-//
-//
-//
-//        List<String> docxList = converterUtils.fileConverter(file, FileFormat.DOCX, "docx",response);
+    @Override
+    public Result pdfToImage(MultipartFile file, HttpServletResponse response) throws Exception {
+//        List<String> docxList = pdfToImageUtils.fileConverter(file, FileFormat., "xlsx");
 //        String downloadLink = null;
 //        if (docxList.size() == 1) {
 //            downloadLink = docxList.get(0);
 //        } else {
-//            converterUtils.merger(docxList, "docx",response);
+//            downloadLink = pdfToImageUtils.merger(docxList, "xlsx");
 //        }
+        return Result.success(null);
+    }
+
+}

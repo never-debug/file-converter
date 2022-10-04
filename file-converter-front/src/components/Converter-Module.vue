@@ -27,7 +27,7 @@
         <div class="converter-upload">
           <input type="text" class="filename" v-model="fileName" placeholder="请选择文件！" disabled>
           <input type="button" value="选择..." class="file-check-btn" @click="checkFile">
-          <input type="file" style="display: none" id="file" @input="selectCondition">
+          <input type="file" style="display: none" id="file" @input="selectCondition" :accept="fileType">
         </div>
       </div>
     </div>
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       type: '',
+      fileType: '',
       prefix: '',
       suffix: '',
       file: '',
@@ -61,6 +62,22 @@ export default {
     this.prefix = temp.split("To")[0];
     this.suffix = temp.split("To")[1];
     document.documentElement.scrollTop = 0;
+    if (this.prefix === "PDF") {
+      console.log("你好")
+      this.fileType = "application/pdf";
+    }
+    if (this.prefix==="Excel"){
+      this.fileType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel";
+    }
+    if (this.prefix==="Word"){
+      this.fileType="application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword";
+    }
+    if (this.prefix==="PPT"){
+      this.fileType="application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    }
+    if (this.prefix==="Image"){
+      this.fileType="image/png,image/jpeg"
+    }
   },
   methods: {
     //返回到主页
@@ -69,7 +86,7 @@ export default {
     },
     //选择文件
     checkFile() {
-      this.file='';
+      this.file = '';
       document.getElementById("file").click();
     },
     //获取文件，监听input标签的内容变化从而触发
@@ -93,7 +110,7 @@ export default {
         this.isSubmit = true;
         this.isDownload = true;
         this.isSuccess = false;
-        this.$http.post('/converter/pdfToWord', fileData).then(res => {
+        this.$http.post('/converter/' + this.type, fileData).then(res => {
           console.log(res)
           this.fileLink = res.data.data;
           this.isSubmit = true;
@@ -103,7 +120,7 @@ export default {
       }
     },
     download() {
-      this.$http.get("/file/download?address=" + this.fileLink,{responseType: 'blob'}).then(res => {
+      this.$http.get("/file/download?address=" + this.fileLink, {responseType: 'blob'}).then(res => {
         const blob = res.data;
         const reader = new FileReader();
         reader.readAsDataURL(blob);
