@@ -6,6 +6,10 @@
         <div class="login-item">
           <input type="text" value="" name="account" placeholder="请输入账号" class="account login-input">
           <input type="password" name="password" placeholder="请输入密码" class="password login-input">
+          <div class="image-captcha">
+            <input type="text" placeholder="验证码" class="captcha-input">
+            <img src="../assets/logo.png" alt="验证码">
+          </div>
           <input type="button" value="登录" class="login-btn">
           <div class="login-other">
             <a class="change-password" href="">忘记密码？</a>
@@ -60,7 +64,9 @@ main {
   background-size: cover;
   min-width: 1170px;
 }
-
+input{
+  border-radius: 5px;
+}
 .login-module, .register-module {
   float: right;
   margin-top: 12%;
@@ -97,6 +103,24 @@ main {
   border: solid 2px #dddddd;
   font-family: "Microsoft YaHei UI", serif;
   font-size: 16px;
+}
+.captcha-input{
+  width: 150px;
+  height: 25px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 45px;
+  vertical-align: middle;
+  outline: none;
+  border: solid 2px #dddddd;
+  font-family: "Microsoft YaHei UI", serif;
+  font-size: 16px;
+}
+.image-captcha img{
+  vertical-align: middle;
+  width: 120px;
+  height: 40px;
+  margin-left: 20px;
 }
 
 .login-btn {

@@ -8,8 +8,9 @@
   - 前段：vue、element plus
   
 ## 版本迭代
-- 1.0.1 ：完成pdf转word功能
-- 1.0.2 ：完成pdf转ppt和pdf转excel功能
+- 1.0.1 ：完成pdf转word功能。
+- 1.0.2 ：完成pdf转ppt和pdf转excel功能。
+- 1.0.3 ：修复前端已知的bug，并且优化了前端页面。
 
 ## 页面效果
 ### 主页

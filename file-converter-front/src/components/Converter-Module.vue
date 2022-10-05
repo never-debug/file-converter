@@ -66,18 +66,21 @@ export default {
       console.log("你好")
       this.fileType = "application/pdf";
     }
-    if (this.prefix==="Excel"){
-      this.fileType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel";
+    //设置文件上传类型
+    if (this.prefix === "Excel") {
+      this.fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel";
     }
-    if (this.prefix==="Word"){
-      this.fileType="application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword";
+    if (this.prefix === "Word") {
+      this.fileType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword";
     }
-    if (this.prefix==="PPT"){
-      this.fileType="application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    if (this.prefix === "PPT") {
+      this.fileType = "application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation"
     }
-    if (this.prefix==="Image"){
-      this.fileType="image/png,image/jpeg"
+    if (this.prefix === "Image") {
+      this.fileType = "image/png,image/jpeg"
     }
+
+
   },
   methods: {
     //返回到主页
@@ -91,18 +94,43 @@ export default {
     },
     //获取文件，监听input标签的内容变化从而触发
     selectCondition(event) {
-
       this.file = event.target.files[0];
       this.fileName = event.target.files[0].name;
       this.isSubmit = false;
       this.isDownload = false;
       this.isSuccess = false;
-      console.log("hello");
     },
     submit() {
+      const suffix = this.fileName.split(".")[1];
       if (this.file === '') {
         this.$message.error("请选择文件");
-      } else {
+      }   //判断文件上传类型
+      else if (this.prefix === "PDF") {
+        if (suffix!=="pdf") {
+          this.$message.error("请选择后缀为pdf的文件！");
+        }
+      }
+      else if (this.prefix === "Word") {
+        if (suffix!=="dot"&&suffix!=="doc"&&suffix!=="docx") {
+          this.$message.error("请选择后缀为doc或docx的文件！");
+        }
+      }
+      else if (this.prefix === "Excel") {
+        if (suffix!=="xls"&&suffix!=="xlsx") {
+          this.$message.error("请选择后缀为doc或docx的文件！");
+        }
+      }
+      else if (this.prefix === "PPT") {
+        if (suffix!=="ppt"&&suffix!=="pptx") {
+          this.$message.error("请选择后缀为ppt或pptx的文件！");
+        }
+      }
+      else if (this.prefix === "Image") {
+        if (suffix!=="png"&&suffix!=="jpg"&&suffix!=="jpeg") {
+          this.$message.error("请选择后缀为png或jpg的图片！");
+        }
+      }
+      else {
         this.isSubmit = true;
         //直接上传文件会报错，需要封装的表单上传
         const fileData = new FormData();
@@ -151,7 +179,7 @@ main {
   height: 561px;
   margin: 20px auto;
   background: #ffffff;
-
+border-radius: 5px;
 }
 
 .module-title {
@@ -263,18 +291,22 @@ main {
   height: 26px;
   border: solid 2px #eeeeee;
   outline: none;
-
+  vertical-align: middle;
+  border-radius: 3px;
 }
 
 .file-check-btn {
   width: 100px;
-  height: 31px;
+  height: 32px;
   font-family: "Microsoft YaHei UI", serif;
+
   background: #007bff;
   border: solid 2px #007bff;
   color: #ffffff;
   letter-spacing: 2px;
   font-size: 15px;
+  vertical-align: middle;
+  border-radius: 3px;
 }
 
 .file-check-btn:hover {

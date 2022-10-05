@@ -29,9 +29,10 @@ export default {
 
 <style scoped>
 section{
+  min-width: 1170px;
   background: #ffffff;
   height: 520px;
-  border-bottom: solid 1px #909090;
+  border-bottom: solid 1px #aeaeae;
 }
 .advert{
   width: 1050px;
