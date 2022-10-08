@@ -103,7 +103,7 @@ export default {
       } else if (this.account === '' || this.password === '') {
         this.$message.error("请账号或密码！")
       } else {
-        this.$http.post("####################################后端接口").then(res => {
+        this.$http.post("/user/login/"+this.account+"/"+this.password).then(res => {
           if (res.data.code === 200) {
             this.$message.success("登录成功");
             //将token存到local storage
@@ -130,6 +130,10 @@ export default {
         this.$message.error("密码与确认密码不一致！");
       } else if (this.captcha1.length !== 4) {
         this.$message.error("验证码长度错误！");
+      }else {
+        this.$http.post("/user/register/"+this.account1+"/"+this.password1+"/"+this.captcha1).then(res=>{
+          console.log(res);
+        })
       }
     }
   }
